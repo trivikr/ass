@@ -113,10 +113,10 @@ export function processUploaded(req: Request, res: Response, next: Function) { /
 	Promise.all([Thumbnail(req.file), Vibrant(req.file), Hash(req.file), fs.stat(req.file.path)])
 		// skipcq: JS-0086
 		.then(([thumbnail, vibrant, sha1, stat]: [string, string, string, Stats]) => (
-			req.file.thumbnail = thumbnail, // skipcq: JS-0090
-			req.file.vibrant = vibrant, // skipcq: JS-0090
-			req.file.sha1 = sha1, // skipcq: JS-0090
-			req.file.size = stat.size // skipcq: JS-0090
+			(// skipcq: JS-0090
+            req.file.thumbnail = thumbnail, // skipcq: JS-0090
+            req.file.vibrant = vibrant, // skipcq: JS-0090
+            req.file.sha1 = sha1, req.file.size = stat.size) // skipcq: JS-0090
 		))
 
 		// Check if file size is too big
